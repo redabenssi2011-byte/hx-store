@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>سلة الشراء</title>
+  <title>Shopping Cart</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,15 +13,15 @@
   </div>
 
   <nav>
-    <h2>سلة المشتريات</h2>
-      <a href="index.html">العودة الي المتجر</a>
+    <h2>Shopping Cart</h2>
+    <a href="index.html">Back to Store</a>
   </nav>
 
   <div class="container" id="cart-container"></div>
 
   <div class="container" style="margin-top: 20px;">
-    <button class="add-btn" onclick="clearCart()">🗑️ تصفير السلة</button>
-    <button class="add-btn" onclick="confirmOrder()">✅ تأكيد الطلب</button>
+    <button class="add-btn" onclick="clearCart()">🗑️ Clear Cart</button>
+    <button class="add-btn" onclick="confirmOrder()">✅ Confirm Order</button>
   </div>
 
   <script>
@@ -29,7 +29,7 @@
     const container = document.getElementById('cart-container');
 
     if (cart.length === 0) {
-      container.innerHTML = '<p style="color: #aaa;">السلة فارغة حالياً.</p>';
+      container.innerHTML = '<p style="color: #aaa;">Your cart is currently empty.</p>';
     } else {
       let total = 0;
       cart.forEach((item, index) => {
@@ -49,7 +49,7 @@
 
       const totalEl = document.createElement('div');
       totalEl.className = 'rules-section';
-      totalEl.innerHTML = `<h2>الإجمالي: ${total} EGP</h2>`;
+      totalEl.innerHTML = `<h2>Total: ${total} EGP</h2>`;
       container.appendChild(totalEl);
     }
 
