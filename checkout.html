@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>تأكيد الطلب</title>
+  <title>Order Confirmation</title>
   <link rel="stylesheet" href="style.css">
   <script src="toast.js"></script> 
 </head>
@@ -14,24 +14,24 @@
   </div>
 
   <nav>
-    <h2>تأكيد الطلب</h2>
-    <a href="cart.html">العودة للسلة</a>
+    <h2>Order Confirmation</h2>
+    <a href="cart.html">Back to Cart</a>
   </nav>
 
   <div class="container">
     <form class="contact-form" id="orderForm">
-      <label>اسم العميل</label>
-      <input type="text" name="name" required placeholder="exmple: Moaaz Ahmed">
+      <label>Customer Name</label>
+      <input type="text" name="name" required placeholder="example: Moaaz Ahmed">
 
-      <label>يوزر الديسكورد</label>
-      <input type="text" name="discord" required placeholder="exmple: 4w_9.">
+      <label>Discord Username</label>
+      <input type="text" name="discord" required placeholder="example: 4w_9.">
 
-      <label>تفاصيل إضافية</label>
-      <textarea name="details" rows="4" placeholder="exmple: احتاج يكون لونه ازرق"></textarea>
+      <label>Additional Details</label>
+      <textarea name="details" rows="4" placeholder="example: I want it to be blue"></textarea>
 
       <div id="productDetails"></div>
 
-      <button type="submit">إرسال الطلب</button>
+      <button type="submit">Submit Order</button>
     </form>
   </div>
 
@@ -40,9 +40,9 @@
     const detailsDiv = document.getElementById('productDetails');
 
     if (cart.length === 0) {
-      detailsDiv.innerHTML = "<p style='color: #aaa;'>لا يوجد منتجات.</p>";
+      detailsDiv.innerHTML = "<p style='color: #aaa;'>No products in cart.</p>";
     } else {
-      let html = "<h3>المنتجات:</h3><ul>";
+      let html = "<h3>Products:</h3><ul>";
       cart.forEach(p => {
         html += `<li>${p.name} - ${p.price} EGP</li>`;
       });
@@ -56,19 +56,19 @@
       const name = this.name.value;
       const discord = this.discord.value;
       const details = this.details.value;
-      const orderId = Math.floor(100000 + Math.random() * 900000); // رقم عشوائي 6 خانات
+      const orderId = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
 
       let productsList = cart.map(p => `• ${p.name} - ${p.price} EGP`).join('\n');
 
       const webhookData = {
         embeds: [{
-          title: `📦 طلب جديد رقم #${orderId}`,
+          title: `📦 New Order #${orderId}`,
           color: 3447003,
           fields: [
-            { name: "👤 الاسم", value: name, inline: true },
-            { name: "🕹️ ديسكورد", value: discord, inline: true },
-            { name: "🛒 المنتجات", value: productsList || 'لا يوجد', inline: false },
-            { name: "📝 تفاصيل إضافية", value: details || 'لا يوجد', inline: false }
+            { name: "👤 Name", value: name, inline: true },
+            { name: "🕹️ Discord", value: discord, inline: true },
+            { name: "🛒 Products", value: productsList || 'None', inline: false },
+            { name: "📝 Additional Details", value: details || 'None', inline: false }
           ],
           footer: { text: "your server name - Order System" },
           timestamp: new Date().toISOString()
@@ -82,13 +82,13 @@
           body: JSON.stringify(webhookData)
         });
 
-        showToast(`✅ تم إرسال الطلب بنجاح! رقم طلبك هو: #${orderId}`, "success");
+        showToast(`✅ Order submitted successfully! Your order number is: #${orderId}`, "success");
 
         localStorage.removeItem('cart');
         this.reset();
 
       } catch (err) {
-        showToast("❌ لقد حدث خطأ ما  ", "error");
+        showToast("❌ Something went wrong", "error");
         console.error(err);
       }
     });
